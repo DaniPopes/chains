@@ -1,5 +1,10 @@
 //! # chains
 
+#![cfg_attr(not(feature = "std"), no_std)]
+
+extern crate alloc;
+
+use alloc::{string::String, vec::Vec};
 use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
 

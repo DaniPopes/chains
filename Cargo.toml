@@ -7,12 +7,13 @@ license = "MIT"
 readme = "README.md"
 
 [dependencies]
-once_cell = "1.16"
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
+once_cell = { version = "1.16", default-features = false, features = ["alloc", "critical-section"] }
+serde = { version = "1.0", default-features = false, features = ["derive"] }
+serde_json = { version = "1.0", default-features = false, features = ["alloc"] }
 
 zip = { version = "0.6", optional = true, default-features = false, features = ["deflate"] }
 
 [features]
-default = ["zip"]
+default = ["std", "zip"]
+std = ["once_cell/std", "serde/std", "serde_json/std"]
 zip = ["dep:zip"]

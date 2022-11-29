@@ -5,6 +5,10 @@ edition = "2021"
 authors = ["DaniPopes <danipopes1@proton.me>"]
 license = "MIT"
 readme = "README.md"
+repository = "https://github.com/danipopes/chains"
+homepage = "https://docs.rs/chains"
+description = "Rust bindings for the Ethereum Chain List."
+keywords = ["ethereum", "eth"]
 
 [dependencies]
 once_cell = { version = "1.16", default-features = false, features = ["alloc", "critical-section"] }

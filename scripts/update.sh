@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-set -e
+#!/bin/sh
 
 chains_url=https://chainid.network/chains.json
 chains_file=data/chains.json

@@ -61,7 +61,7 @@ pub enum RedFlagItem {
     ReusedChainId,
 }
 
-/// EIP155 Chain Data.
+/// EIP-155 Chain Data.
 ///
 /// Schema: https://github.com/ethereum-lists/chains/blob/master/tools/schema/chainSchema.json
 #[derive(Clone, Debug, Deserialize, Serialize)]

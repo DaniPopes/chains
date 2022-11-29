@@ -22,7 +22,7 @@ pub use crate::common::*;
 /// [Mini version]: https://github.com/ethereum-lists/chains/blob/2bd5eb7a2f7796411ee13def4b4e601f77f9c243/processor/src/main/kotlin/org/ethereum/lists/chains/Main.kt#L58-L64
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct ChainData {
+pub struct Chain {
     /// Name of the network.
     pub name: String,
 

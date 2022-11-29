@@ -1,9 +1,12 @@
 //! # chains
+//!
+//! Rust bindings for the [Ethereum Chain List](https://github.com/ethereum-lists/chains).
 
 #![cfg_attr(not(feature = "std"), no_std)]
 
 extern crate alloc;
 
+use alloc::vec::Vec;
 use once_cell::sync::Lazy;
 
 #[doc(hidden)]
@@ -19,7 +22,9 @@ mod mini;
 #[cfg(feature = "mini")]
 pub use mini::*;
 
-pub static CHAIN_DATA: Lazy<Vec<ChainData>> = Lazy::new(|| {
+/// A [lazily-initialized][Lazy] [Vector][Vec] which contains all the [EIP-155 chains](https://github.com/ethereum-lists/chains)
+/// deserialized into [Chain] structs.
+pub static CHAINS: Lazy<Vec<Chain>> = Lazy::new(|| {
     #[cfg(not(feature = "zip"))]
     {
         #[cfg(not(feature = "mini"))]
@@ -49,12 +54,14 @@ mod tests {
 
     #[test]
     fn it_works() {
-        let len = CHAIN_DATA.len();
+        let len = CHAINS.len();
+        #[cfg(feature = "std")]
         eprintln!("{len}");
         assert!(len >= 600);
 
-        for (i, chain) in CHAIN_DATA.iter().enumerate() {
-            eprintln!("{i}: {chain:?}\n");
+        for (_i, chain) in CHAINS.iter().enumerate() {
+            #[cfg(feature = "std")]
+            eprintln!("{_i}: {chain:?}\n");
             assert!(!chain.name.is_empty());
             assert!(chain.chain_id > 0);
             assert!(!chain.short_name.is_empty());

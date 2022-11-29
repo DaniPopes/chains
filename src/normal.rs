@@ -47,7 +47,7 @@ pub enum RedFlag {
 /// Schema: https://github.com/ethereum-lists/chains/blob/master/tools/schema/chainSchema.json
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct ChainData {
+pub struct Chain {
     /// Name of the network.
     pub name: String,
 

@@ -7,8 +7,17 @@ name: CI
 
 jobs:
     test:
-        name: test all
+        name: test ${{ matrix.job.name }}
         runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                job:
+                    - name: all
+                      flags: --all-features
+                    - name: default
+                      flags: ""
+                    - name: no default
+                      flags: --no-default-features
         steps:
             - uses: actions/checkout@v3
             - name: Install Rust
@@ -16,9 +25,11 @@ jobs:
               with:
                   toolchain: stable
                   override: true
-            - uses: Swatinem/rust-cache@v1
+            - uses: Swatinem/rust-cache@v2
+              with:
+                  cache-on-failure: true
             - name: test --all
-              run: cargo test --all --all-features
+              run: cargo test --all ${{ matrix.job.flags }}
 
     clippy:
         name: clippy
@@ -31,8 +42,9 @@ jobs:
                   toolchain: nightly
                   override: true
                   components: clippy
-            - uses: Swatinem/rust-cache@v1
-            # Run clippy
+            - uses: Swatinem/rust-cache@v2
+              with:
+                  cache-on-failure: true
             - name: clippy --all
               run: cargo clippy --all --tests --all-features
 
@@ -47,7 +59,8 @@ jobs:
                   toolchain: nightly
                   override: true
                   components: rustfmt
-            - uses: Swatinem/rust-cache@v1
-            # Check fmt
+            - uses: Swatinem/rust-cache@v2
+              with:
+                  cache-on-failure: true
             - name: rustfmt --check
               run: rustfmt --check

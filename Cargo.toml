@@ -15,5 +15,6 @@ zip = { version = "0.6", optional = true, default-features = false, features = [
 
 [features]
 default = ["std", "zip"]
+mini = []
 std = ["once_cell/std", "serde/std", "serde_json/std"]
 zip = ["dep:zip"]

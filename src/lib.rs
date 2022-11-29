@@ -3,6 +3,8 @@
 //! Rust bindings for the [Ethereum Chain List](https://github.com/ethereum-lists/chains).
 
 #![cfg_attr(not(feature = "std"), no_std)]
+#![warn(missing_docs, unreachable_pub)]
+#![deny(rustdoc::broken_intra_doc_links)]
 
 extern crate alloc;
 

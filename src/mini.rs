@@ -7,7 +7,7 @@ pub use crate::common::*;
 
 /// EIP-155 Chain Data.
 ///
-/// [Mini version]: includes only the following fields:
+/// **[Mini version]** - includes only the following fields:
 /// - name
 /// - chainId
 /// - shortName
@@ -23,24 +23,30 @@ pub use crate::common::*;
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Chain {
-    /// Name of the network.
+    /// The name of the network.
     pub name: String,
 
-    /// Chain ID of the Network.
+    /// The chain ID of the network.
     pub chain_id: u64,
 
+    /// The short name of the network.
+    ///
     /// Matches the pattern: `^[A-Za-z0-9-_]{1,64}$`
     pub short_name: String,
 
-    /// Network ID of the Network.
+    /// The network ID of the network.
     pub network_id: u64,
 
+    /// The native currency of the network.
     pub native_currency: NativeCurrency,
 
+    /// The RPCs of the network, if any.
     pub rpc: Vec<String>,
 
+    /// The faucets of the network, if any.
     pub faucets: Vec<String>,
 
+    /// The info URL of the network.
     #[serde(rename = "infoURL")]
     pub info_url: String,
 }

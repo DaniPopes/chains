@@ -3,17 +3,7 @@
 use alloc::{string::String, vec::Vec};
 use serde::{Deserialize, Serialize};
 
-/// Schema: https://github.com/ethereum-lists/chains/blob/master/tools/schema/chainSchema.json
-#[derive(Clone, Debug, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct NativeCurrency {
-    /// Name of the native currency.
-    pub name: String,
-    /// Symbol of the native currency.
-    pub symbol: String,
-    /// Decimals of the native currency.
-    pub decimals: u8,
-}
+pub use crate::common::*;
 
 /// EIP-155 Chain Data.
 ///
@@ -36,17 +26,20 @@ pub struct ChainData {
     /// Name of the network.
     pub name: String,
 
+    /// Chain ID of the Network.
     pub chain_id: u64,
 
+    /// Matches the pattern: `^[A-Za-z0-9-_]{1,64}$`
     pub short_name: String,
 
+    /// Network ID of the Network.
     pub network_id: u64,
+
+    pub native_currency: NativeCurrency,
 
     pub rpc: Vec<String>,
 
     pub faucets: Vec<String>,
-
-    pub native_currency: NativeCurrency,
 
     #[serde(rename = "infoURL")]
     pub info_url: String,

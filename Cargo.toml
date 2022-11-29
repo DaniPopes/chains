@@ -18,3 +18,6 @@ default = ["std", "zip"]
 mini = []
 std = ["once_cell/std", "serde/std", "serde_json/std"]
 zip = ["dep:zip"]
+
+# ethereum-types = { version = "0.14", optional = true, default-features = false }
+# ethereum-types = ["dep:ethereum-types"]

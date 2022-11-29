@@ -3,29 +3,17 @@
 use alloc::{string::String, vec::Vec};
 use serde::{Deserialize, Serialize};
 
-/// Schema: https://github.com/ethereum-lists/chains/blob/master/tools/schema/chainSchema.json
-#[derive(Clone, Debug, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct NativeCurrency {
-    /// Name of the native currency.
-    pub name: String,
-    /// Symbol of the native currency.
-    pub symbol: String,
-    /// Decimals of the native currency.
-    pub decimals: u8,
-}
+pub use crate::common::*;
 
 /// Schema: https://github.com/ethereum-lists/chains/blob/master/tools/schema/chainSchema.json
 #[derive(Clone, Debug, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
 pub struct Ens {
-    /// ENS registry address
+    /// ENS registry address.
     pub registry: String,
 }
 
 /// Schema: https://github.com/ethereum-lists/chains/blob/master/tools/schema/chainSchema.json
 #[derive(Clone, Debug, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
 pub struct Explorer {
     pub name: String,
     pub url: String,
@@ -34,14 +22,12 @@ pub struct Explorer {
 
 /// Schema: https://github.com/ethereum-lists/chains/blob/master/tools/schema/chainSchema.json
 #[derive(Clone, Debug, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
 pub struct Bridge {
     pub url: String,
 }
 
 /// Schema: https://github.com/ethereum-lists/chains/blob/master/tools/schema/chainSchema.json
 #[derive(Clone, Debug, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
 pub struct Parent {
     #[serde(rename = "type")]
     pub type_value: String,
@@ -52,7 +38,7 @@ pub struct Parent {
 /// Schema: https://github.com/ethereum-lists/chains/blob/master/tools/schema/chainSchema.json
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub enum RedFlagItem {
+pub enum RedFlag {
     ReusedChainId,
 }
 
@@ -65,6 +51,7 @@ pub struct ChainData {
     /// Name of the network.
     pub name: String,
 
+    /// Matches the pattern: `^[A-Za-z0-9-_]{1,64}$`
     pub short_name: String,
 
     /// Optional title for the network.
@@ -87,10 +74,13 @@ pub struct ChainData {
     #[serde(rename = "infoURL")]
     pub info_url: String,
 
+    /// Chain ID of the Network.
     pub chain_id: u64,
 
+    /// Network ID of the Network.
     pub network_id: u64,
 
+    /// Slip44 of the Network.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub slip44: Option<u64>,
 
@@ -107,5 +97,5 @@ pub struct ChainData {
     pub status: Option<String>,
 
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub red_flags: Option<Vec<RedFlagItem>>,
+    pub red_flags: Option<Vec<RedFlag>>,
 }

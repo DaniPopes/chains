@@ -3,10 +3,21 @@
 use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
 
-pub const CHAINS_JSON: &str = include_str!("../data/chains.json");
-
-pub static CHAIN_DATA: Lazy<Vec<ChainData>> =
-    Lazy::new(|| serde_json::from_str(CHAINS_JSON).unwrap());
+pub static CHAIN_DATA: Lazy<Vec<ChainData>> = Lazy::new(|| {
+    #[cfg(not(feature = "zip"))]
+    {
+        const S: &str = include_str!("../data/chains.json");
+        serde_json::from_str(S).unwrap()
+    }
+    #[cfg(feature = "zip")]
+    {
+        const Z: &[u8] = include_bytes!("../data/chains.zip");
+        let reader = std::io::Cursor::new(Z);
+        let mut archive = zip::ZipArchive::new(reader).unwrap();
+        let file = archive.by_index(0).unwrap();
+        serde_json::from_reader(file).unwrap()
+    }
+});
 
 /// Schema: https://github.com/ethereum-lists/chains/blob/master/tools/schema/chainSchema.json
 #[derive(Clone, Debug, Deserialize, Serialize)]

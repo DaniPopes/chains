@@ -43,7 +43,7 @@ pub struct Chain {
     /// The RPCs of the network, if any.
     pub rpc: Vec<String>,
 
-    /// The faucets of the network, if any.
+    /// The faucet URLs of the network, if any.
     pub faucets: Vec<String>,
 
     /// The info URL of the network.
